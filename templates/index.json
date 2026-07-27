@@ -16,6 +16,42 @@
           "type": "slide",
           "settings": {
             "image": "shopify://shop_images/WhatsApp_Image_2026-07-27_at_5.03.46_PM.jpg",
+            "image_overlay_opacity": 10,
+            "heading": "<strong>Welcome To Krishisathi</strong>",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "Find Solution",
+            "link": "shopify://collections/all",
+            "button_style_secondary": false,
+            "show_text_box": false,
+            "box_align": "bottom-right",
+            "text_alignment": "right",
+            "text_alignment_mobile": "center",
+            "color_scheme": "scheme-5"
+          }
+        },
+        "slide_q9rWcK": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/tejas.webp",
+            "image_overlay_opacity": 0,
+            "heading": "<strong>Welcome To Krishisathi</strong>",
+            "heading_size": "h1",
+            "subheading": "",
+            "button_label": "Find Solution",
+            "link": "shopify://collections/all",
+            "button_style_secondary": false,
+            "show_text_box": false,
+            "box_align": "bottom-right",
+            "text_alignment": "right",
+            "text_alignment_mobile": "right",
+            "color_scheme": "scheme-5"
+          }
+        },
+        "slide_LTX9bW": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/Plantroix.webp",
             "image_overlay_opacity": 0,
             "heading": "<strong>Welcome To Krishisathi</strong>",
             "heading_size": "h1",
@@ -27,29 +63,13 @@
             "box_align": "bottom-right",
             "text_alignment": "right",
             "text_alignment_mobile": "center",
-            "color_scheme": "scheme-2"
-          }
-        },
-        "slide_LTX9bW": {
-          "type": "slide",
-          "settings": {
-            "image_overlay_opacity": 0,
-            "heading": "Image slide",
-            "heading_size": "h1",
-            "subheading": "Tell your brand's story through images",
-            "button_label": "Button label",
-            "link": "",
-            "button_style_secondary": false,
-            "show_text_box": true,
-            "box_align": "middle-center",
-            "text_alignment": "center",
-            "text_alignment_mobile": "center",
-            "color_scheme": ""
+            "color_scheme": "scheme-5"
           }
         }
       },
       "block_order": [
         "slide_9gEGF9",
+        "slide_q9rWcK",
         "slide_LTX9bW"
       ],
       "name": "t:sections.slideshow.presets.name",
