@@ -1,500 +1,304 @@
-{% comment %}theme-check-disable UndefinedObject{% endcomment %}
-{{ 'section-footer.css' | asset_url | stylesheet_tag }}
-{{ 'component-newsletter.css' | asset_url | stylesheet_tag }}
-{{ 'component-list-menu.css' | asset_url | stylesheet_tag }}
-{{ 'component-list-payment.css' | asset_url | stylesheet_tag }}
-{{ 'component-list-social.css' | asset_url | stylesheet_tag }}
+{% comment %}
+  KRISHISATHI PREMIUM FOOTER SECTION
+  100% Customizable via Shopify Theme Editor
+{% endcomment %}
 
 {%- style -%}
-  .footer {
-    margin-top: {{ section.settings.margin_top | times: 0.75 | round: 0 }}px;
+  .ks-footer-wrapper {
+    --ks-foot-bg: {{ section.settings.bg_color }};
+    --ks-foot-bg-bottom: {{ section.settings.bg_bottom_color }};
+    --ks-foot-text-main: {{ section.settings.heading_color }};
+    --ks-foot-text-muted: {{ section.settings.text_color }};
+    --ks-foot-accent: {{ section.settings.accent_color }};
+    --ks-foot-border: rgba(255, 255, 255, 0.08);
+    --ks-foot-emerald: #10b981;
+    
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    background: var(--ks-foot-bg);
+    color: var(--ks-foot-text-muted);
+    position: relative;
+    overflow: hidden;
+    margin-top: {{ section.settings.margin_top }}px;
   }
 
-  .section-{{ section.id }}-padding {
-    padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
-    padding-bottom: {{ section.settings.padding_bottom | times: 0.75 | round: 0 }}px;
+  .ks-footer-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 10%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(16, 185, 129, 0.03) 0%, rgba(255,255,255,0) 70%);
+    border-radius: 50%;
+    pointer-events: none;
   }
 
-  @media screen and (min-width: 750px) {
-    .footer {
-      margin-top: {{ section.settings.margin_top }}px;
+  .ks-footer-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: {{ section.settings.padding_top }}px 20px {{ section.settings.padding_bottom }}px 20px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .ks-foot-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  @media (min-width: 640px) {
+    .ks-foot-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (min-width: 1024px) {
+    .ks-foot-grid {
+      grid-template-columns: 1.5fr repeat({{ section.blocks.size | minus: 1 }}, 1fr);
+      gap: 64px;
     }
-
-    .section-{{ section.id }}-padding {
-      padding-top: {{ section.settings.padding_top }}px;
-      padding-bottom: {{ section.settings.padding_bottom }}px;
-    }
   }
+
+  /* Brand Block */
+  .ks-foot-brand { display: flex; flex-direction: column; gap: 20px; }
+  .ks-foot-logo { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; }
+  .ks-foot-logo-icon {
+    width: 44px; height: 44px; background: linear-gradient(135deg, var(--ks-foot-emerald), #047857);
+    border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px;
+  }
+  .ks-foot-logo-text { font-size: 24px; font-weight: 900; color: var(--ks-foot-text-main); letter-spacing: -0.02em; }
+  .ks-foot-logo-text span { color: var(--ks-foot-emerald); }
+  .ks-foot-desc { font-size: 0.95rem; line-height: 1.7; margin: 0; }
+
+  /* Contact List */
+  .ks-foot-contact-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 14px; }
+  .ks-foot-contact-item { display: flex; align-items: flex-start; gap: 12px; font-size: 0.9rem; line-height: 1.5; }
+  .ks-foot-contact-item svg { width: 18px; height: 18px; color: var(--ks-foot-accent); margin-top: 3px; flex-shrink: 0; }
+
+  /* Titles */
+  .ks-foot-col-title {
+    font-size: 1.1rem; font-weight: 800; color: var(--ks-foot-text-main); margin: 0 0 24px 0;
+    position: relative; padding-bottom: 12px;
+  }
+  .ks-foot-col-title::after {
+    content: ''; position: absolute; left: 0; bottom: 0; width: 40px; height: 3px;
+    background: var(--ks-foot-accent); border-radius: 2px;
+  }
+
+  /* Menus */
+  .ks-foot-links { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
+  .ks-foot-links a {
+    color: var(--ks-foot-text-muted); text-decoration: none; font-size: 0.95rem; font-weight: 500;
+    transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 8px;
+  }
+  .ks-foot-links a::before {
+    content: '→'; font-size: 0.8rem; color: var(--ks-foot-emerald); opacity: 0; transform: translateX(-5px); transition: all 0.3s ease;
+  }
+  .ks-foot-links a:hover { color: var(--ks-foot-accent); transform: translateX(4px); }
+  .ks-foot-links a:hover::before { opacity: 1; transform: translateX(0); }
+
+  /* Newsletter */
+  .ks-newsletter-form { display: flex; position: relative; margin-top: 16px; }
+  .ks-newsletter-input {
+    width: 100%; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--ks-foot-border);
+    padding: 14px 16px; border-radius: 12px; color: white; font-size: 0.95rem; outline: none; transition: all 0.3s ease;
+  }
+  .ks-newsletter-input:focus { border-color: var(--ks-foot-emerald); background: rgba(255, 255, 255, 0.08); }
+  .ks-newsletter-btn {
+    position: absolute; right: 4px; top: 4px; bottom: 4px; background: var(--ks-foot-accent);
+    color: #000; border: none; border-radius: 8px; padding: 0 20px; font-weight: 800; cursor: pointer; transition: all 0.3s ease;
+  }
+  .ks-newsletter-btn:hover { background: #f59e0b; transform: scale(0.98); }
+
+  /* Social Icons */
+  .ks-social-flex { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 20px; }
+  .ks-social-icon {
+    width: 40px; height: 40px; border-radius: 50%; background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--ks-foot-border); display: flex; align-items: center; justify-content: center;
+    color: var(--ks-foot-text-main); text-decoration: none; transition: all 0.3s ease;
+  }
+  .ks-social-icon svg { width: 18px; height: 18px; fill: currentColor; }
+  .ks-social-icon:hover { background: var(--ks-foot-emerald); border-color: var(--ks-foot-emerald); color: white; transform: translateY(-3px); }
+
+  /* Bottom Bar */
+  .ks-foot-bottom { background: var(--ks-foot-bg-bottom); border-top: 1px solid var(--ks-foot-border); padding: 24px 20px; }
+  .ks-foot-bottom-container { max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; align-items: center; text-align: center; }
+  @media (min-width: 768px) {
+    .ks-foot-bottom-container { flex-direction: row; justify-content: space-between; text-align: left; }
+  }
+  .ks-copyright { font-size: 0.85rem; color: var(--ks-foot-text-muted); margin: 0; }
+  .ks-payment-icons { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: center; }
+  .ks-payment-icons svg { height: 24px; width: 38px; opacity: 0.8; }
 {%- endstyle -%}
 
-<footer class="footer color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
-  {%- liquid
-    assign has_social_icons = true
-    if settings.social_facebook_link == blank and settings.social_instagram_link == blank and settings.social_youtube_link == blank and settings.social_tiktok_link == blank and settings.social_twitter_link == blank and settings.social_pinterest_link == blank and settings.social_snapchat_link == blank and settings.social_tumblr_link == blank and settings.social_vimeo_link == blank
-      assign has_social_icons = false
-    endif
-
-    if settings.brand_image == blank and settings.brand_headline == blank and settings.brand_description == blank
-      assign brand_empty = true
-    endif
-
-    if section.blocks.size == 1 and section.blocks[0].type == 'brand_information' and brand_empty and has_social_icons == false and section.settings.newsletter_enable == false and section.settings.enable_follow_on_shop == false
-      assign only_empty_brand = true
-    endif
-  -%}
-  {%- if section.blocks.size > 0
-    or section.settings.newsletter_enable
-    or section.settings.show_social
-    and has_social_icons == true
-    or section.settings.enable_follow_on_shop
-  -%}
-    {%- unless only_empty_brand -%}
-      <div class="footer__content-top page-width">
-        {%- if section.blocks.size > 0 -%}
-          {%- liquid
-            if section.blocks.size == 9
-              assign footer_grid_class = 'grid--3-col-tablet'
-            elsif section.blocks.size > 6
-              assign footer_grid_class = 'grid--4-col-desktop'
-            elsif section.blocks.size > 4
-              assign footer_grid_class = 'grid--3-col-tablet'
-            endif
-          -%}
-          <div
-            class="footer__blocks-wrapper grid grid--1-col grid--2-col grid--4-col-tablet {{ footer_grid_class }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-            {% if settings.animations_reveal_on_scroll %}
-              data-cascade
-            {% endif %}
-          >
-            {%- for block in section.blocks -%}
-              <div
-                class="footer-block grid__item{% if block.type == 'link_list' %} footer-block--menu{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-                {{ block.shopify_attributes }}
-                {% if settings.animations_reveal_on_scroll %}
-                  data-cascade
-                  style="--animation-order: {{ forloop.index }};"
-                {% endif %}
-              >
-                {%- if block.settings.heading != blank -%}
-                  <h2 class="footer-block__heading inline-richtext">{{- block.settings.heading -}}</h2>
-                {%- endif -%}
-
-                {%- case block.type -%}
-                  {%- when '@app' -%}
-                    {% render block %}
-                  {%- when 'text' -%}
-                    <div class="footer-block__details-content rte">
-                      {{ block.settings.subtext }}
-                    </div>
-                  {%- when 'link_list' -%}
-                    {%- if block.settings.menu != blank -%}
-                      <ul class="footer-block__details-content list-unstyled">
-                        {%- for link in block.settings.menu.links -%}
-                          <li>
-                            <a
-                              href="{{ link.url }}"
-                              class="link link--text list-menu__item list-menu__item--link{% if link.active %} list-menu__item--active{% endif %}"
-                            >
-                              {{ link.title | escape }}
-                            </a>
-                          </li>
-                        {%- endfor -%}
-                      </ul>
-                    {%- endif -%}
-                  {%- when 'brand_information' -%}
-                    <div class="footer-block__brand-info">
-                      {%- if settings.brand_image != blank -%}
-                        {%- assign brand_image_height = settings.brand_image_width
-                          | divided_by: settings.brand_image.aspect_ratio
-                        -%}
-                        <div
-                          class="footer-block__image-wrapper"
-                          style="max-width: min(100%, {{ settings.brand_image_width }}px);"
-                        >
-                          {{
-                            settings.brand_image
-                            | image_url: width: 1100
-                            | image_tag:
-                              loading: 'lazy',
-                              widths: '50, 100, 150, 200, 300, 400, 550, 800, 1100',
-                              height: brand_image_height,
-                              width: settings.brand_image_width
-                          }}
-                        </div>
-                      {%- endif -%}
-                      {%- if settings.brand_headline != blank -%}
-                        <h2 class="footer-block__heading rte">{{ settings.brand_headline }}</h2>
-                      {%- endif -%}
-                      {%- if settings.brand_description != blank -%}
-                        <div class="rte">{{ settings.brand_description }}</div>
-                      {%- endif -%}
-                      {%- if block.settings.show_social and has_social_icons -%}
-                        {%- render 'social-icons', class: 'footer__list-social' -%}
-                      {%- endif -%}
-                    </div>
-                  {%- when 'image' -%}
-                    <div class="footer-block__details-content footer-block-image {{ block.settings.alignment }}">
-                      {%- if block.settings.image != blank -%}
-                        {%- assign image_size_2x = block.settings.image_width | times: 2 | at_most: 5760 -%}
-                        <div
-                          class="footer-block__image-wrapper"
-                          style="max-width: min(100%, {{ block.settings.image_width }}px);"
-                        >
-                          <img
-                            srcset="{{ block.settings.image | image_url: width: block.settings.image_width }}, {{ block.settings.image | image_url: width: image_size_2x }} 2x"
-                            src="{{ block.settings.image | image_url: width: 760 }}"
-                            alt="{{ block.settings.image.alt | escape }}"
-                            loading="lazy"
-                            width="{{ block.settings.image.width }}"
-                            height="{{ block.settings.image.height }}"
-                          >
-                        </div>
-                      {%- else -%}
-                        {{ 'image' | placeholder_svg_tag: 'placeholder-svg placeholder' }}
-                      {%- endif -%}
-                    </div>
-                {%- endcase -%}
-              </div>
-            {%- endfor -%}
-          </div>
-        {%- endif -%}
-
-        <div
-          class="footer-block--newsletter{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-          {% if settings.animations_reveal_on_scroll %}
-            data-cascade
-          {% endif %}
-        >
-          {%- if section.settings.newsletter_enable -%}
-            <div class="footer-block__newsletter">
-              {%- if section.settings.newsletter_heading != blank -%}
-                <h2 class="footer-block__heading inline-richtext">{{ section.settings.newsletter_heading }}</h2>
+<footer class="ks-footer-wrapper">
+  <div class="ks-footer-container">
+    <div class="ks-foot-grid">
+      
+      {%- for block in section.blocks -%}
+        {%- case block.type -%}
+          
+          {%- when 'brand_contact' -%}
+            <div class="ks-foot-brand" {{ block.shopify_attributes }}>
+              {%- if block.settings.logo != blank -%}
+                <img src="{{ block.settings.logo | image_url: width: 300 }}" alt="{{ shop.name }}" style="max-width: {{ block.settings.logo_width }}px; height: auto;">
+              {%- else -%}
+                <a href="{{ routes.root_url }}" class="ks-foot-logo">
+                  <div class="ks-foot-logo-icon">🌱</div>
+                  <div class="ks-foot-logo-text">{{ shop.name }}</div>
+                </a>
               {%- endif -%}
-              {%- form 'customer', id: 'ContactFooter', class: 'footer__newsletter newsletter-form' -%}
-                <input type="hidden" name="contact[tags]" value="newsletter">
-                <div class="newsletter-form__field-wrapper">
-                  <div class="field">
-                    <input
-                      id="NewsletterForm--{{ section.id }}"
-                      type="email"
-                      name="contact[email]"
-                      class="field__input"
-                      value="{{ form.email }}"
-                      aria-required="true"
-                      autocorrect="off"
-                      autocapitalize="off"
-                      autocomplete="email"
-                      {% if form.errors %}
-                        autofocus
-                        aria-invalid="true"
-                        aria-describedby="ContactFooter-error"
-                      {% elsif form.posted_successfully? %}
-                        aria-describedby="ContactFooter-success"
-                      {% endif %}
-                      placeholder="{{ 'newsletter.label' | t }}"
-                      required
-                    >
-                    <label class="field__label" for="NewsletterForm--{{ section.id }}">
-                      {{ 'newsletter.label' | t }}
-                    </label>
-                    <button
-                      type="submit"
-                      class="newsletter-form__button field__button"
-                      name="commit"
-                      id="Subscribe"
-                      aria-label="{{ 'newsletter.button_label' | t }}"
-                    >
-                      <span class="svg-wrapper">
-                        {{- 'icon-arrow.svg' | inline_asset_content -}}
-                      </span>
-                    </button>
+              
+              {%- if block.settings.description != blank -%}
+                <p class="ks-foot-desc">{{ block.settings.description }}</p>
+              {%- endif -%}
+
+              <ul class="ks-foot-contact-list">
+                {%- if block.settings.address != blank -%}
+                  <li class="ks-foot-contact-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+                    <span>{{ block.settings.address }}</span>
+                  </li>
+                {%- endif -%}
+                {%- if block.settings.phone != blank -%}
+                  <li class="ks-foot-contact-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
+                    <span><strong>Helpline:</strong> <a href="tel:{{ block.settings.phone }}" style="color: inherit; text-decoration: none;">{{ block.settings.phone }}</a></span>
+                  </li>
+                {%- endif -%}
+                {%- if block.settings.email != blank -%}
+                  <li class="ks-foot-contact-item">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+                    <a href="mailto:{{ block.settings.email }}" style="color: inherit; text-decoration: none;">{{ block.settings.email }}</a>
+                  </li>
+                {%- endif -%}
+              </ul>
+            </div>
+
+          {%- when 'link_list' -%}
+            <div class="ks-foot-col" {{ block.shopify_attributes }}>
+              <h4 class="ks-foot-col-title">{{ block.settings.heading | default: block.settings.menu.title }}</h4>
+              {%- if block.settings.menu != blank -%}
+                <ul class="ks-foot-links">
+                  {%- for link in block.settings.menu.links -%}
+                    <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                  {%- endfor -%}
+                </ul>
+              {%- endif -%}
+            </div>
+
+          {%- when 'newsletter' -%}
+            <div class="ks-foot-col" {{ block.shopify_attributes }}>
+              <h4 class="ks-foot-col-title">{{ block.settings.heading }}</h4>
+              <div class="ks-foot-newsletter">
+                <p style="margin: 0; font-size: 0.95rem; line-height: 1.6;">{{ block.settings.subtext }}</p>
+                
+                {%- form 'customer', id: 'ContactFooter', class: 'contact-form' -%}
+                  <input type="hidden" name="contact[tags]" value="newsletter">
+                  <div class="ks-newsletter-form">
+                    <input type="email" name="contact[email]" class="ks-newsletter-input" placeholder="Enter your email..." required>
+                    <button type="submit" class="ks-newsletter-btn">Join</button>
                   </div>
-                  {%- if form.errors -%}
-                    <small class="newsletter-form__message form__message" id="ContactFooter-error">
-                      <span class="svg-wrapper">
-                        {{- 'icon-error.svg' | inline_asset_content -}}
-                      </span>
-                      {{- form.errors.translated_fields.email | capitalize }}
-                      {{ form.errors.messages.email -}}
-                    </small>
+                  {%- if form.posted_successfully? -%}
+                    <p style="color: var(--ks-foot-emerald); font-size: 0.85rem; margin-top: 8px;">Thanks for subscribing!</p>
                   {%- endif -%}
-                </div>
-                {%- if form.posted_successfully? -%}
-                  <h3
-                    class="newsletter-form__message newsletter-form__message--success form__message"
-                    id="ContactFooter-success"
-                    tabindex="-1"
-                    autofocus
-                  >
-                    <span class="svg-wrapper">
-                      {{- 'icon-success.svg' | inline_asset_content -}}
-                    </span>
-                    {{- 'newsletter.success' | t }}
-                  </h3>
+                {%- endform -%}
+
+                {%- if block.settings.show_social -%}
+                  <div class="ks-social-flex">
+                    {%- if settings.social_facebook_link != blank -%}
+                      <a href="{{ settings.social_facebook_link }}" target="_blank" class="ks-social-icon"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+                    {%- endif -%}
+                    {%- if settings.social_instagram_link != blank -%}
+                      <a href="{{ settings.social_instagram_link }}" target="_blank" class="ks-social-icon"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+                    {%- endif -%}
+                    {%- if settings.social_youtube_link != blank -%}
+                      <a href="{{ settings.social_youtube_link }}" target="_blank" class="ks-social-icon"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.42a2.78 2.78 0 0 0-1.94 2C1 8.16 1 12 1 12s0 3.84.46 5.58a2.78 2.78 0 0 0 1.94 2C5.12 20 12 20 12 20s6.88 0 8.6-.42a2.78 2.78 0 0 0 1.94-2C23 15.84 23 12 23 12s0-3.84-.46-5.58zM9.5 15.5v-7l6.5 3.5-6.5 3.5z"></path></svg></a>
+                    {%- endif -%}
+                  </div>
                 {%- endif -%}
-              {%- endform -%}
-            </div>
-          {%- endif -%}
-
-          {%- if shop.features.follow_on_shop? and section.settings.enable_follow_on_shop -%}
-            <div class="footer__follow-on-shop">
-              {{ shop | login_button: action: 'follow' }}
-            </div>
-          {%- endif -%}
-
-          {%- if section.settings.show_social and has_social_icons -%}
-            {%- render 'social-icons', class: 'footer__list-social' -%}
-          {%- endif -%}
-        </div>
-      </div>
-    {%- endunless -%}
-  {%- endif -%}
-
-  <div
-    class="footer__content-bottom{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
-    {% if settings.animations_reveal_on_scroll %}
-      data-cascade
-    {% endif %}
-  >
-    <div class="footer__content-bottom-wrapper page-width">
-      <div class="footer__column footer__localization isolate">
-        {%- if section.settings.enable_country_selector and localization.available_countries.size > 1 -%}
-          <localization-form>
-            {%- form 'localization', id: 'FooterCountryForm', class: 'localization-form' -%}
-              <div>
-                <h2 class="caption-large text-body" id="FooterCountryLabel">{{ 'localization.country_label' | t }}</h2>
-                {%- render 'country-localization', localPosition: 'FooterCountry' -%}
               </div>
-            {%- endform -%}
-          </localization-form>
-        {%- endif -%}
+            </div>
 
-        {%- if section.settings.enable_language_selector and localization.available_languages.size > 1 -%}
-          <localization-form>
-            {%- form 'localization', id: 'FooterLanguageForm', class: 'localization-form' -%}
-              <div>
-                <h2 class="caption-large text-body" id="FooterLanguageLabel">
-                  {{ 'localization.language_label' | t }}
-                </h2>
-                {%- render 'language-localization', localPosition: 'FooterLanguage' -%}
-              </div>
-            {%- endform -%}
-          </localization-form>
-        {%- endif -%}
-      </div>
-      <div class="footer__column footer__column--info">
-        {%- if section.settings.payment_enable -%}
-          <div class="footer__payment">
-            <span class="visually-hidden">{{ 'sections.footer.payment' | t }}</span>
-            <ul class="list list-payment" role="list">
-              {%- for type in shop.enabled_payment_types -%}
-                <li class="list-payment__item">
-                  {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
-                </li>
-              {%- endfor -%}
-            </ul>
-          </div>
-        {%- endif -%}
-      </div>
+        {%- endcase -%}
+      {%- endfor -%}
+
     </div>
-    <div class="footer__content-bottom-wrapper page-width{% if section.settings.enable_country_selector == false and section.settings.enable_language_selector == false %} footer__content-bottom-wrapper--center{% endif %}">
-      <div class="footer__copyright caption">
-        <small class="copyright__content"
-          >&copy; {{ 'now' | date: '%Y' }}, {{ shop.name | link_to: routes.root_url -}}
-        </small>
-        <small class="copyright__content">{{ powered_by_link }}</small>
-        {%- if section.settings.show_policy -%}
-          <ul class="policies list-unstyled">
-            {%- for policy in shop.policies -%}
-              {%- if policy != blank -%}
-                <li>
-                  <small class="copyright__content"
-                    ><a href="{{ policy.url }}">{{ policy.title | escape }}</a></small
-                  >
-                </li>
-              {%- endif -%}
-            {%- endfor -%}
-          </ul>
-        {%- endif -%}
-      </div>
+  </div>
+
+  <div class="ks-foot-bottom">
+    <div class="ks-foot-bottom-container">
+      <p class="ks-copyright">
+        &copy; {{ 'now' | date: '%Y' }} <strong>{{ shop.name }}</strong>. {{ section.settings.copyright_text }}
+      </p>
+      
+      {%- if section.settings.payment_enable -%}
+        <div class="ks-payment-icons">
+          {%- for type in shop.enabled_payment_types -%}
+            {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
     </div>
   </div>
 </footer>
 
 {% schema %}
 {
-  "name": "t:sections.footer.name",
-  "blocks": [
+  "name": "Footer",
+  "settings": [
     {
-      "type": "@app"
+      "type": "header",
+      "content": "Colors"
     },
     {
-      "type": "link_list",
-      "name": "t:sections.footer.blocks.link_list.name",
-      "settings": [
-        {
-          "type": "inline_richtext",
-          "id": "heading",
-          "default": "t:sections.footer.blocks.link_list.settings.heading.default",
-          "label": "t:sections.footer.blocks.link_list.settings.heading.label"
-        },
-        {
-          "type": "link_list",
-          "id": "menu",
-          "default": "footer",
-          "label": "t:sections.footer.blocks.link_list.settings.menu.label"
-        }
-      ]
+      "type": "color",
+      "id": "bg_color",
+      "label": "Background Color",
+      "default": "#051a11"
     },
     {
-      "type": "brand_information",
-      "name": "t:sections.footer.blocks.brand_information.name",
-      "settings": [
-        {
-          "type": "paragraph",
-          "content": "t:sections.footer.blocks.brand_information.settings.paragraph.content"
-        },
-        {
-          "type": "checkbox",
-          "id": "show_social",
-          "default": true,
-          "label": "t:sections.footer.blocks.brand_information.settings.show_social.label",
-          "info": "t:sections.footer.blocks.brand_information.settings.show_social.info"
-        }
-      ]
+      "type": "color",
+      "id": "bg_bottom_color",
+      "label": "Bottom Bar Background",
+      "default": "#03100a"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading Text Color",
+      "default": "#f8fafc"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Body Text Color",
+      "default": "#94a3b8"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent Color (Gold)",
+      "default": "#fbbf24"
+    },
+    {
+      "type": "header",
+      "content": "Bottom Bar"
     },
     {
       "type": "text",
-      "name": "t:sections.footer.blocks.text.name",
-      "settings": [
-        {
-          "type": "inline_richtext",
-          "id": "heading",
-          "default": "t:sections.footer.blocks.text.settings.heading.default",
-          "label": "t:sections.footer.blocks.text.settings.heading.label"
-        },
-        {
-          "type": "richtext",
-          "id": "subtext",
-          "default": "t:sections.footer.blocks.text.settings.subtext.default",
-          "label": "t:sections.footer.blocks.text.settings.subtext.label"
-        }
-      ]
-    },
-    {
-      "type": "image",
-      "name": "Image",
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "image",
-          "label": "Image"
-        },
-        {
-          "type": "range",
-          "id": "image_width",
-          "min": 50,
-          "max": 550,
-          "step": 5,
-          "unit": "px",
-          "label": "Width",
-          "default": 100
-        },
-        {
-          "type": "select",
-          "id": "alignment",
-          "label": "Alignment",
-          "options": [
-            {
-              "value": "",
-              "label": "Left"
-            },
-            {
-              "value": "center",
-              "label": "Center"
-            },
-            {
-              "value": "right",
-              "label": "Right"
-            }
-          ],
-          "default": "center"
-        }
-      ]
-    }
-  ],
-  "settings": [
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "t:sections.all.colors.label",
-      "default": "scheme-1"
-    },
-    {
-      "type": "header",
-      "content": "t:sections.footer.settings.header__1.content",
-      "info": "t:sections.footer.settings.header__1.info"
-    },
-    {
-      "type": "checkbox",
-      "id": "newsletter_enable",
-      "default": true,
-      "label": "t:sections.footer.settings.newsletter_enable.label"
-    },
-    {
-      "type": "inline_richtext",
-      "id": "newsletter_heading",
-      "default": "t:sections.footer.settings.newsletter_heading.default",
-      "label": "t:sections.footer.settings.newsletter_heading.label"
-    },
-    {
-      "type": "header",
-      "content": "t:sections.footer.settings.header__9.content"
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_follow_on_shop",
-      "default": true,
-      "label": "t:sections.footer.settings.enable_follow_on_shop.label",
-      "info": "t:sections.footer.settings.enable_follow_on_shop.info"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_social",
-      "default": true,
-      "label": "t:sections.footer.settings.show_social.label",
-      "info": "t:sections.footer.settings.show_social.info"
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_country_selector",
-      "default": true,
-      "label": "t:sections.footer.settings.enable_country_selector.label",
-      "info": "t:sections.footer.settings.enable_country_selector.info"
-    },
-    {
-      "type": "checkbox",
-      "id": "enable_language_selector",
-      "default": true,
-      "label": "t:sections.footer.settings.enable_language_selector.label",
-      "info": "t:sections.footer.settings.enable_language_selector.info"
+      "id": "copyright_text",
+      "label": "Copyright Text",
+      "default": "All Rights Reserved."
     },
     {
       "type": "checkbox",
       "id": "payment_enable",
-      "default": true,
-      "label": "t:sections.footer.settings.payment_enable.label"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_policy",
-      "default": true,
-      "label": "t:sections.footer.settings.show_policy.label",
-      "info": "t:sections.footer.settings.show_policy.info"
+      "label": "Show Payment Icons",
+      "default": true
     },
     {
       "type": "header",
-      "content": "t:sections.all.spacing"
+      "content": "Spacing"
     },
     {
       "type": "range",
@@ -503,41 +307,131 @@
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "t:sections.footer.settings.margin_top.label",
-      "default": 0
-    },
-    {
-      "type": "header",
-      "content": "t:sections.all.padding.section_padding_heading"
+      "label": "Top Margin",
+      "default": 40
     },
     {
       "type": "range",
       "id": "padding_top",
-      "min": 0,
+      "min": 20,
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "t:sections.all.padding.padding_top",
-      "default": 36
+      "label": "Top Padding",
+      "default": 80
     },
     {
       "type": "range",
       "id": "padding_bottom",
-      "min": 0,
+      "min": 20,
       "max": 100,
       "step": 4,
       "unit": "px",
-      "label": "t:sections.all.padding.padding_bottom",
-      "default": 36
+      "label": "Bottom Padding",
+      "default": 60
+    }
+  ],
+  "blocks": [
+    {
+      "type": "brand_contact",
+      "name": "Brand & Contact Info",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Custom Logo"
+        },
+        {
+          "type": "range",
+          "id": "logo_width",
+          "min": 50,
+          "max": 250,
+          "step": 10,
+          "unit": "px",
+          "label": "Logo Width",
+          "default": 150
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "बिहार का नं. 1 और सबसे भरोसेमंद कृषि ई-कॉमर्स प्लेटफॉर्म। किसानों को 100% असली बीज, खाद और मशीनरी सीधे घर तक पहुँचाने का संकल्प।"
+        },
+        {
+          "type": "text",
+          "id": "address",
+          "label": "Address",
+          "default": "Exhibition Road, Patna, Bihar - 800001, India"
+        },
+        {
+          "type": "text",
+          "id": "phone",
+          "label": "Phone Helpline",
+          "default": "1800-123-4567"
+        },
+        {
+          "type": "text",
+          "id": "email",
+          "label": "Email Support",
+          "default": "support@krishisathi.in"
+        }
+      ]
+    },
+    {
+      "type": "link_list",
+      "name": "Menu Column",
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "info": "Leave blank to use the menu title."
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Select Menu",
+          "default": "footer"
+        }
+      ]
+    },
+    {
+      "type": "newsletter",
+      "name": "Newsletter & Socials",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Heading",
+          "default": "Join Our Community"
+        },
+        {
+          "type": "textarea",
+          "id": "subtext",
+          "label": "Description",
+          "default": "मौसम, नई फसल तकनीक और एक्सक्लूसिव डिस्काउंट की जानकारी सबसे पहले पाएं।"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_social",
+          "label": "Show Social Media Icons",
+          "default": true
+        }
+      ]
     }
   ],
   "default": {
     "blocks": [
       {
+        "type": "brand_contact"
+      },
+      {
         "type": "link_list"
       },
       {
-        "type": "text"
+        "type": "newsletter"
       }
     ]
   }
