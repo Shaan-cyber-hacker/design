@@ -1,159 +1,187 @@
-{%- style -%}.ks-footer-{{ section.id }} {--ks-foot-bg: {{ section.settings.bg_color }};--ks-foot-bg-bottom: {{ section.settings.bg_bottom_color }};--ks-foot-text-main: {{ section.settings.heading_color }};--ks-foot-text-muted: {{ section.settings.text_color }};--ks-foot-accent: {{ section.settings.accent_color }};--ks-foot-border: rgba(255, 255, 255, 0.08);--ks-foot-emerald: #10b981;--ks-foot-emerald-glow: rgba(16, 185, 129, 0.15);font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
-background: var(--ks-foot-bg);
-color: var(--ks-foot-text-muted);
+{%- style -%}/* --- BASE SECTION VARIABLES --- /
+.ks-super-footer-{{ section.id }} {
+/ Colors */--ks-bg-main: {{ section.settings.bg_color }};--ks-bg-bottom: {{ section.settings.bg_bottom_color }};--ks-text-heading: {{ section.settings.heading_color }};--ks-text-body: {{ section.settings.text_color }};--ks-accent: {{ section.settings.accent_color }};--ks-border: rgba(255, 255, 255, 0.08);--ks-emerald: #10b981;--ks-emerald-glow: rgba(16, 185, 129, 0.15);/* Typography Customization */
+--ks-font-heading: {{ section.settings.heading_size }}px;
+--ks-font-body: {{ section.settings.body_size }}px;
+
+/* Spacing & Layout */
+--ks-pad-top-mobile: {{ section.settings.padding_top | times: 0.6 | round }}px;
+--ks-pad-bottom-mobile: {{ section.settings.padding_bottom | times: 0.6 | round }}px;
+--ks-pad-top-desktop: {{ section.settings.padding_top }}px;
+--ks-pad-bottom-desktop: {{ section.settings.padding_bottom }}px;
+--ks-horizontal-padding: clamp(24px, 5vw, 64px); /* Breathable edges */
+--ks-max-width: {{ section.settings.max_width }}px;
+
+background: var(--ks-bg-main);
+color: var(--ks-text-body);
+font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+margin-top: {{ section.settings.margin_top }}px;
 position: relative;
 overflow: hidden;
-margin-top: {{ section.settings.margin_top }}px;
-}/* Responsive Padding */.ks-foot-inner-{{ section.id }} {padding-top: {{ section.settings.padding_top | divided_by: 1.5 | round }}px;padding-bottom: {{ section.settings.padding_bottom | divided_by: 1.5 | round }}px;}@media (min-width: 768px) {.ks-foot-inner-{{ section.id }} {padding-top: {{ section.settings.padding_top }}px;padding-bottom: {{ section.settings.padding_bottom }}px;}}/* Decorative Top Wave */.ks-footer-wave {position: absolute;top: 0;left: 0;width: 100%;overflow: hidden;line-height: 0;transform: translateY(-1px);z-index: 1;}.ks-footer-wave svg {display: block;width: calc(100% + 1.3px);height: 40px;}@media (min-width: 768px) {.ks-footer-wave svg { height: 60px; }}/* Animated Background Glow Decor */.ks-footer-{{ section.id }}::before {content: '';position: absolute;top: -100px;right: -100px;width: 500px;height: 500px;background: radial-gradient(circle, var(--ks-foot-emerald-glow) 0%, rgba(255,255,255,0) 70%);border-radius: 50%;pointer-events: none;z-index: 0;animation: ksFootPulse 6s ease-in-out infinite alternate;}@keyframes ksFootPulse {0% { transform: scale(1); opacity: 0.6; }100% { transform: scale(1.2); opacity: 1; }}.ks-footer-container {max-width: 1280px;margin: 0 auto;padding: 0 20px;position: relative;z-index: 2;}/* Smart Grid Layout */.ks-foot-grid {display: grid;grid-template-columns: 1fr;gap: 48px;}@media (min-width: 640px) {.ks-foot-grid { grid-template-columns: repeat(2, 1fr); gap: 40px; }}@media (min-width: 1024px) {.ks-foot-grid {grid-template-columns: 1.6fr repeat({{ section.blocks.size | minus: 1 | at_most: 3 }}, 1fr);gap: 56px;}}/* Column Titles /
-.ks-foot-col-title {
-font-size: 1.15rem;
-font-weight: 800;
-color: var(--ks-foot-text-main);
-margin: 0 0 24px 0;
-position: relative;
-padding-bottom: 12px;
-letter-spacing: 0.02em;
-}
-.ks-foot-col-title::after {
-content: '';
-position: absolute;
-left: 0;
-bottom: 0;
-width: 35px;
-height: 3px;
-background: var(--ks-foot-accent);
-border-radius: 4px;
-transition: width 0.3s ease;
-}
-.ks-foot-col:hover .ks-foot-col-title::after {
-width: 55px; / Interactive underline expansion */}/* 1. Brand Block Styling */.ks-foot-brand { display: flex; flex-direction: column; gap: 20px; }.ks-foot-logo { display: inline-flex; align-items: center; gap: 12px; text-decoration: none; transition: transform 0.3s ease; }.ks-foot-logo:hover { transform: translateY(-2px); }.ks-foot-logo-icon {width: 48px; height: 48px;background: linear-gradient(135deg, var(--ks-foot-emerald), #047857);border-radius: 14px; display: flex; align-items: center; justify-content: center;font-size: 24px; box-shadow: 0 8px 16px rgba(4, 120, 87, 0.3);}.ks-foot-logo-text { font-size: 28px; font-weight: 900; color: var(--ks-foot-text-main); letter-spacing: -0.03em; }.ks-foot-logo-text span { color: var(--ks-foot-accent); }.ks-foot-desc { font-size: 0.95rem; line-height: 1.7; margin: 0; color: var(--ks-foot-text-muted); }.ks-foot-contact-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px; }.ks-foot-contact-item { display: flex; align-items: flex-start; gap: 14px; font-size: 0.9rem; line-height: 1.5; transition: transform 0.3s ease; }.ks-foot-contact-item:hover { transform: translateX(4px); }.ks-foot-contact-item svg { width: 22px; height: 22px; color: var(--ks-foot-accent); margin-top: 2px; flex-shrink: 0; }/* 2. Menu Links - Interactive */.ks-foot-links { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 14px; }.ks-foot-links a {color: var(--ks-foot-text-muted); text-decoration: none; font-size: 0.95rem;font-weight: 500; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 8px;}.ks-foot-links a::before {content: '→'; font-size: 0.9rem; color: var(--ks-foot-emerald);opacity: 0; transform: translateX(-10px); transition: all 0.3s ease;}.ks-foot-links a:hover { color: var(--ks-foot-accent); transform: translateX(4px); }.ks-foot-links a:hover::before { opacity: 1; transform: translateX(0); }/* 3. Decorative Trust Badges Block */.ks-trust-badges { display: flex; flex-direction: column; gap: 14px; }.ks-trust-badge-item {display: flex; align-items: center; gap: 14px; background: rgba(255,255,255,0.03);padding: 12px 14px; border-radius: 14px; border: 1px solid var(--ks-foot-border);transition: all 0.3s ease; cursor: default;}.ks-trust-badge-item:hover {background: rgba(255,255,255,0.06);border-color: var(--ks-foot-emerald);transform: translateY(-3px);box-shadow: 0 10px 20px rgba(0,0,0,0.1);}.ks-trust-icon {width: 42px; height: 42px; border-radius: 12px; background: var(--ks-foot-emerald-glow);color: var(--ks-foot-emerald); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.3s ease;}.ks-trust-badge-item:hover .ks-trust-icon { background: var(--ks-foot-emerald); color: #fff; }.ks-trust-text strong { display: block; color: var(--ks-foot-text-main); font-size: 0.95rem; font-weight: 700; }.ks-trust-text span { font-size: 0.8rem; color: var(--ks-foot-text-muted); display: block; margin-top: 2px;}/* 4. Newsletter & Social */.ks-newsletter-form { display: flex; position: relative; margin-top: 18px; box-shadow: 0 8px 24px rgba(0,0,0,0.15); border-radius: 12px;}.ks-newsletter-input {width: 100%; background: rgba(255, 255, 255, 0.04); border: 1px solid var(--ks-foot-border);padding: 15px 16px; border-radius: 12px; color: white; font-size: 0.95rem; outline: none; transition: all 0.3s ease;}.ks-newsletter-input:focus { border-color: var(--ks-foot-accent); background: rgba(255, 255, 255, 0.08); box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.1); }.ks-newsletter-btn {position: absolute; right: 5px; top: 5px; bottom: 5px; background: var(--ks-foot-accent);color: #000; border: none; border-radius: 9px; padding: 0 22px; font-weight: 800; cursor: pointer; transition: all 0.3s ease;}.ks-newsletter-btn:hover { background: #f59e0b; transform: scale(0.97); }.ks-social-flex { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }.ks-social-icon {width: 44px; height: 44px; border-radius: 12px; background: rgba(255, 255, 255, 0.04);border: 1px solid var(--ks-foot-border); display: flex; align-items: center; justify-content: center;color: var(--ks-foot-text-main); text-decoration: none; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);}.ks-social-icon svg { width: 20px; height: 20px; fill: currentColor; transition: all 0.3s ease; }.ks-social-icon:hover {background: var(--ks-foot-emerald); border-color: var(--ks-foot-emerald);color: white; transform: translateY(-6px) scale(1.05);box-shadow: 0 10px 20px rgba(16, 185, 129, 0.25);}/* 5. App Download Block */.ks-app-links { display: flex; flex-direction: column; gap: 14px; }.ks-app-btn {display: flex; align-items: center; gap: 14px; background: rgba(0,0,0,0.3); color: #fff;text-decoration: none; padding: 12px 18px; border-radius: 14px; border: 1px solid rgba(255,255,255,0.1); transition: all 0.3s ease;}.ks-app-btn:hover { background: #000; border-color: var(--ks-foot-accent); transform: translateY(-3px); box-shadow: 0 10px 20px rgba(0,0,0,0.2); }.ks-app-btn svg { width: 28px; height: 28px; fill: #fff; }.ks-app-text span { display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; color: #aaa; margin-bottom: 2px;}.ks-app-text strong { font-size: 1.1rem; font-family: sans-serif; font-weight: 700; line-height: 1; display: block;}/* Bottom Bar */.ks-foot-bottom { background: var(--ks-foot-bg-bottom); border-top: 1px solid var(--ks-foot-border); padding: 24px 20px; }.ks-foot-bottom-container { max-width: 1280px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; align-items: center; text-align: center; }@media (min-width: 768px) { .ks-foot-bottom-container { flex-direction: row; justify-content: space-between; text-align: left; } }.ks-copyright { font-size: 0.85rem; color: var(--ks-foot-text-muted); margin: 0; font-weight: 500;}.ks-copyright strong { color: var(--ks-foot-text-main); font-weight: 700; }.ks-payment-icons { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; justify-content: center; }.ks-payment-icons svg { height: 26px; width: 40px; opacity: 0.8; transition: opacity 0.3s ease; }.ks-payment-icons svg:hover { opacity: 1; }.ks-payment-cod {font-size: 0.75rem; font-weight: 800; color: var(--ks-foot-emerald);background: var(--ks-foot-emerald-glow); border: 1px solid rgba(16,185,129,0.3);padding: 6px 12px; border-radius: 6px; letter-spacing: 0.05em; text-transform: uppercase;}{%- endstyle -%}{%- if section.settings.show_wave -%}{%- endif -%}  {%- for block in section.blocks -%}
-    {%- case block.type -%}
+border-top: 1px solid var(--ks-border);
+}/* Decorative Background Blur */.ks-super-footer-{{ section.id }}::before {content: '';position: absolute;top: -150px;left: -100px;width: 600px;height: 600px;background: radial-gradient(circle, var(--ks-emerald-glow) 0%, rgba(255,255,255,0) 70%);border-radius: 50%;pointer-events: none;z-index: 0;opacity: 0.7;}/* --- LAYOUT CONTAINERS --- */.ks-sf-inner {max-width: var(--ks-max-width);margin: 0 auto;padding: var(--ks-pad-top-mobile) var(--ks-horizontal-padding) var(--ks-pad-bottom-mobile);position: relative;z-index: 2;}@media (min-width: 768px) {.ks-sf-inner {padding: var(--ks-pad-top-desktop) var(--ks-horizontal-padding) var(--ks-pad-bottom-desktop);}}/* Advanced Auto-Fit Grid for Perfect Balance /
+.ks-sf-grid {
+display: grid;
+/ Adjusts columns automatically based on available space, ensuring they never stick together */grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));gap: clamp(40px, 6vw, 72px);}/* Block Titles */.ks-sf-title {font-size: var(--ks-font-heading);font-weight: 800;color: var(--ks-text-heading);margin: 0 0 28px 0;position: relative;padding-bottom: 12px;letter-spacing: 0.02em;line-height: 1.3;}.ks-sf-title::after {content: '';position: absolute;left: 0;bottom: 0;width: 40px;height: 3px;background: var(--ks-accent);border-radius: 4px;transition: width 0.4s cubic-bezier(0.16, 1, 0.3, 1);}.ks-sf-block:hover .ks-sf-title::after {width: 80px;}/* --- 1. BRAND BLOCK --- */.ks-sf-logo-wrapper { display: inline-flex; align-items: center; gap: 14px; text-decoration: none; margin-bottom: 20px; transition: transform 0.3s ease; }.ks-sf-logo-wrapper:hover { transform: translateY(-3px); }.ks-sf-logo-icon { width: 48px; height: 48px; background: linear-gradient(135deg, var(--ks-emerald), #047857); border-radius: 14px; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 8px 20px rgba(16, 185, 129, 0.25); }.ks-sf-logo-text { font-size: clamp(22px, 2vw, 28px); font-weight: 900; color: var(--ks-text-heading); letter-spacing: -0.02em; }.ks-sf-desc { font-size: var(--ks-font-body); line-height: 1.7; color: var(--ks-text-body); margin: 0 0 24px 0; }.ks-sf-contact-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 18px; }.ks-sf-contact-item { display: flex; align-items: flex-start; gap: 14px; font-size: var(--ks-font-body); line-height: 1.5; transition: transform 0.3s ease; }.ks-sf-contact-item:hover { transform: translateX(6px); color: var(--ks-text-heading); }.ks-sf-contact-item svg { width: 22px; height: 22px; color: var(--ks-accent); margin-top: 2px; flex-shrink: 0; }/* --- 2. MENU LINKS --- */.ks-sf-menu { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px; }.ks-sf-menu a { color: var(--ks-text-body); text-decoration: none; font-size: var(--ks-font-body); font-weight: 500; transition: all 0.3s ease; display: inline-flex; align-items: center; position: relative; width: fit-content; }.ks-sf-menu a::after { content: ''; position: absolute; width: 0; height: 1px; bottom: -2px; left: 0; background-color: var(--ks-accent); transition: width 0.3s ease; }.ks-sf-menu a:hover { color: var(--ks-text-heading); transform: translateX(6px); }.ks-sf-menu a:hover::after { width: 100%; }/* --- 3. TRUST BADGES --- */.ks-sf-trust-box { display: flex; flex-direction: column; gap: 16px; }.ks-sf-trust-item { display: flex; align-items: center; gap: 16px; background: rgba(255,255,255,0.03); padding: 14px 18px; border-radius: 16px; border: 1px solid var(--ks-border); transition: all 0.4s ease; cursor: default; }.ks-sf-trust-item:hover { background: rgba(255,255,255,0.06); border-color: var(--ks-emerald); transform: translateY(-4px); box-shadow: 0 12px 24px rgba(0,0,0,0.15); }.ks-sf-trust-icon { width: 44px; height: 44px; border-radius: 12px; background: var(--ks-emerald-glow); color: var(--ks-emerald); display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: all 0.3s ease; }.ks-sf-trust-item:hover .ks-sf-trust-icon { background: var(--ks-emerald); color: #fff; transform: scale(1.1) rotate(5deg); }.ks-sf-trust-text strong { display: block; color: var(--ks-text-heading); font-size: calc(var(--ks-font-body) + 1px); font-weight: 700; margin-bottom: 2px;}.ks-sf-trust-text span { font-size: calc(var(--ks-font-body) - 1px); color: var(--ks-text-body); }/* --- 4. NEWSLETTER --- */.ks-sf-newsletter-form { display: flex; position: relative; margin-top: 24px; border-radius: 14px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }.ks-sf-newsletter-input { width: 100%; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--ks-border); padding: 18px 20px; color: var(--ks-text-heading); font-size: var(--ks-font-body); outline: none; transition: all 0.3s ease; }.ks-sf-newsletter-input:focus { background: rgba(255, 255, 255, 0.08); border-color: var(--ks-emerald); box-shadow: inset 0 0 0 1px var(--ks-emerald); }.ks-sf-newsletter-btn { position: absolute; right: 6px; top: 6px; bottom: 6px; background: var(--ks-accent); color: #000; border: none; border-radius: 10px; padding: 0 24px; font-weight: 800; cursor: pointer; transition: all 0.3s ease; }.ks-sf-newsletter-btn:hover { transform: scale(0.96); background: #f59e0b; }/* --- 5. SOCIAL MEDIA --- */.ks-sf-social-grid { display: flex; flex-wrap: wrap; gap: 14px; }.ks-sf-social-icon { width: 48px; height: 48px; border-radius: 14px; background: rgba(255, 255, 255, 0.04); border: 1px solid var(--ks-border); display: flex; align-items: center; justify-content: center; color: var(--ks-text-heading); text-decoration: none; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }.ks-sf-social-icon svg { width: 22px; height: 22px; fill: currentColor; transition: all 0.3s ease; }.ks-sf-social-icon:hover { background: var(--ks-emerald); border-color: var(--ks-emerald); color: white; transform: translateY(-6px) scale(1.05); box-shadow: 0 12px 24px var(--ks-emerald-glow); }/* --- 6. APP DOWNLOADS --- */.ks-sf-app-links { display: flex; flex-direction: column; gap: 16px; }.ks-sf-app-btn { display: flex; align-items: center; gap: 16px; background: rgba(0,0,0,0.4); color: #fff; text-decoration: none; padding: 14px 20px; border-radius: 16px; border: 1px solid rgba(255,255,255,0.08); transition: all 0.3s ease; }.ks-sf-app-btn:hover { background: #000; border-color: var(--ks-accent); transform: translateY(-4px); box-shadow: 0 15px 30px rgba(0,0,0,0.2); }.ks-sf-app-btn svg { width: 32px; height: 32px; fill: #fff; }.ks-sf-app-text span { display: block; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; color: #aaa; margin-bottom: 2px;}.ks-sf-app-text strong { font-size: 1.15rem; font-family: sans-serif; font-weight: 700; line-height: 1; display: block;}/* --- 7. IMAGE GALLERY --- */.ks-sf-gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }.ks-sf-gallery-img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 12px; transition: transform 0.4s ease; border: 1px solid var(--ks-border); }.ks-sf-gallery-item { overflow: hidden; border-radius: 12px; display: block; }.ks-sf-gallery-item:hover .ks-sf-gallery-img { transform: scale(1.15) rotate(2deg); opacity: 0.8; }/* --- 8. STORE FEATURES LIST --- */.ks-sf-features { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 16px; }.ks-sf-feature-item { display: flex; align-items: center; gap: 12px; font-size: var(--ks-font-body); color: var(--ks-text-body); }.ks-sf-feature-icon { color: var(--ks-emerald); font-size: 1.1rem; flex-shrink: 0; background: var(--ks-emerald-glow); width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; }/* --- 9. BUSINESS HOURS --- */.ks-sf-hours { display: flex; flex-direction: column; gap: 12px; }.ks-sf-hour-row { display: flex; justify-content: space-between; font-size: var(--ks-font-body); color: var(--ks-text-body); padding-bottom: 8px; border-bottom: 1px dashed rgba(255,255,255,0.05); transition: color 0.3s ease; }.ks-sf-hour-row:hover { color: var(--ks-text-heading); border-color: rgba(255,255,255,0.2); }/* --- 10. MAP EMBED --- */.ks-sf-map-container { width: 100%; border-radius: 16px; overflow: hidden; border: 1px solid var(--ks-border); line-height: 0; }.ks-sf-map-container iframe { width: 100%; height: 200px; border: none; filter: invert(90%) hue-rotate(180deg) contrast(80%); transition: filter 0.3s ease; }.ks-sf-map-container iframe:hover { filter: none; }/* --- BOTTOM BAR --- */.ks-sf-bottom { background: var(--ks-bg-bottom); border-top: 1px solid var(--ks-border); padding: 32px var(--ks-horizontal-padding); }.ks-sf-bottom-inner { max-width: var(--ks-max-width); margin: 0 auto; display: flex; flex-direction: column; gap: 24px; align-items: center; text-align: center; }@media (min-width: 992px) { .ks-sf-bottom-inner { flex-direction: row; justify-content: space-between; text-align: left; } }.ks-sf-copyright { font-size: calc(var(--ks-font-body) - 1px); color: var(--ks-text-body); margin: 0; font-weight: 500;}.ks-sf-copyright strong { color: var(--ks-text-heading); font-weight: 800; }.ks-sf-payments { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; justify-content: center; }.ks-sf-payments svg { height: 28px; width: 44px; opacity: 0.7; transition: opacity 0.3s ease, transform 0.3s ease; }.ks-sf-payments svg:hover { opacity: 1; transform: scale(1.1); }{%- endstyle -%}  {%- for block in section.blocks -%}
+    <div class="ks-sf-block" {{ block.shopify_attributes }}>
       
-      {%- when 'brand_contact' -%}
-        <div class="ks-foot-brand ks-foot-col" {{ block.shopify_attributes }}>
+      {%- if block.settings.heading != blank -%}
+        <h4 class="ks-sf-title">{{ block.settings.heading }}</h4>
+      {%- endif -%}
+
+      {%- case block.type -%}
+        
+        {%- when 'brand' -%}
           {%- if block.settings.logo != blank -%}
-            <a href="{{ routes.root_url }}" class="ks-foot-logo">
+            <a href="{{ routes.root_url }}" class="ks-sf-logo-wrapper">
               <img src="{{ block.settings.logo | image_url: width: 400 }}" alt="{{ shop.name }}" style="max-width: {{ block.settings.logo_width }}px; height: auto;">
             </a>
           {%- else -%}
-            <a href="{{ routes.root_url }}" class="ks-foot-logo">
-              <div class="ks-foot-logo-icon">🌱</div>
-              <div class="ks-foot-logo-text">{{ shop.name }}</div>
+            <a href="{{ routes.root_url }}" class="ks-sf-logo-wrapper">
+              <div class="ks-sf-logo-icon">🌱</div>
+              <div class="ks-sf-logo-text">{{ shop.name }}</div>
             </a>
           {%- endif -%}
           
-          {%- if block.settings.description != blank -%}
-            <p class="ks-foot-desc">{{ block.settings.description }}</p>
+          {%- if block.settings.desc != blank -%}
+            <p class="ks-sf-desc">{{ block.settings.desc }}</p>
           {%- endif -%}
 
-          <ul class="ks-foot-contact-list">
+          <ul class="ks-sf-contact-list">
             {%- if block.settings.address != blank -%}
-              <li class="ks-foot-contact-item">
+              <li class="ks-sf-contact-item">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg>
                 <span>{{ block.settings.address }}</span>
               </li>
             {%- endif -%}
             {%- if block.settings.phone != blank -%}
-              <li class="ks-foot-contact-item">
+              <li class="ks-sf-contact-item">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path></svg>
-                <span><strong>हेल्पलाइन (Toll-Free):</strong><br><a href="tel:{{ block.settings.phone }}" style="color: var(--ks-foot-accent); text-decoration: none; font-size: 1.15rem; font-weight: 800; display:block; margin-top: 4px;">{{ block.settings.phone }}</a></span>
+                <span><strong style="color:var(--ks-text-heading); display:block; margin-bottom:2px;">Call Support:</strong><a href="tel:{{ block.settings.phone }}" style="color: var(--ks-accent); text-decoration: none; font-size: 1.1rem; font-weight: 800;">{{ block.settings.phone }}</a></span>
               </li>
             {%- endif -%}
           </ul>
-        </div>
 
-      {%- when 'link_list' -%}
-        <div class="ks-foot-col" {{ block.shopify_attributes }}>
-          <h4 class="ks-foot-col-title">{{ block.settings.heading | default: block.settings.menu.title }}</h4>
+        {%- when 'menu' -%}
           {%- if block.settings.menu != blank -%}
-            <ul class="ks-foot-links">
+            <ul class="ks-sf-menu">
               {%- for link in block.settings.menu.links -%}
                 <li><a href="{{ link.url }}">{{ link.title }}</a></li>
               {%- endfor -%}
             </ul>
           {%- endif -%}
-        </div>
 
-      {%- when 'trust_badges' -%}
-        <div class="ks-foot-col" {{ block.shopify_attributes }}>
-          <h4 class="ks-foot-col-title">{{ block.settings.heading }}</h4>
-          <div class="ks-trust-badges">
-            <div class="ks-trust-badge-item">
-              <div class="ks-trust-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></svg></div>
-              <div class="ks-trust-text"><strong>100% ओरिजिनल गारंटी</strong><span>पक्के जीएसटी बिल के साथ</span></div>
+        {%- when 'trust_badges' -%}
+          <div class="ks-sf-trust-box">
+            <div class="ks-sf-trust-item">
+              <div class="ks-sf-trust-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M9 12l2 2 4-4"></path></svg></div>
+              <div class="ks-sf-trust-text"><strong>{{ block.settings.t1_head }}</strong><span>{{ block.settings.t1_sub }}</span></div>
             </div>
-            <div class="ks-trust-badge-item">
-              <div class="ks-trust-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13" rx="2"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon><circle cx="5.5" cy="18.5" r="2.5"></circle><circle cx="18.5" cy="18.5" r="2.5"></circle></svg></div>
-              <div class="ks-trust-text"><strong>फ़ास्ट होम डिलीवरी</strong><span>बिहार के सभी 38 जिलों में</span></div>
+            <div class="ks-sf-trust-item">
+              <div class="ks-sf-trust-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="1" y="3" width="15" height="13" rx="2"></rect><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon></svg></div>
+              <div class="ks-sf-trust-text"><strong>{{ block.settings.t2_head }}</strong><span>{{ block.settings.t2_sub }}</span></div>
             </div>
-            <div class="ks-trust-badge-item">
-              <div class="ks-trust-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg></div>
-              <div class="ks-trust-text"><strong>कैश ऑन डिलीवरी (COD)</strong><span>सामान मिलने पर पैसे दें</span></div>
+            <div class="ks-sf-trust-item">
+              <div class="ks-sf-trust-icon"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="2" y="5" width="20" height="14" rx="2"></rect><line x1="2" y1="10" x2="22" y2="10"></line></svg></div>
+              <div class="ks-sf-trust-text"><strong>{{ block.settings.t3_head }}</strong><span>{{ block.settings.t3_sub }}</span></div>
             </div>
           </div>
-        </div>
 
-      {%- when 'newsletter' -%}
-        <div class="ks-foot-col" {{ block.shopify_attributes }}>
-          <h4 class="ks-foot-col-title">{{ block.settings.heading }}</h4>
-          <div class="ks-foot-newsletter">
-            <p style="margin: 0; font-size: 0.95rem; line-height: 1.6;">{{ block.settings.subtext }}</p>
-            
-            {%- form 'customer', id: 'ContactFooter', class: 'contact-form' -%}
-              <input type="hidden" name="contact[tags]" value="newsletter">
-              <div class="ks-newsletter-form">
-                <input type="email" name="contact[email]" class="ks-newsletter-input" placeholder="अपना ईमेल दर्ज करें..." required>
-                <button type="submit" class="ks-newsletter-btn">जुड़ें</button>
-              </div>
-            {%- endform -%}
+        {%- when 'newsletter' -%}
+          <p class="ks-sf-desc" style="margin-bottom: 0;">{{ block.settings.subtext }}</p>
+          {%- form 'customer', id: 'FooterNewsletterForm', class: 'contact-form' -%}
+            <input type="hidden" name="contact[tags]" value="newsletter">
+            <div class="ks-sf-newsletter-form">
+              <input type="email" name="contact[email]" class="ks-sf-newsletter-input" placeholder="Your email address..." required>
+              <button type="submit" class="ks-sf-newsletter-btn">Join</button>
+            </div>
+            {%- if form.posted_successfully? -%}
+              <p style="color: var(--ks-emerald); font-size: 0.85rem; margin-top: 10px; font-weight: 700;">✓ Thanks for subscribing!</p>
+            {%- endif -%}
+          {%- endform -%}
 
-            {%- if block.settings.show_social -%}
-              <div class="ks-social-flex">
-                {%- if settings.social_facebook_link != blank -%}
-                  <a href="{{ settings.social_facebook_link }}" target="_blank" class="ks-social-icon"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
-                {%- endif -%}
-                {%- if settings.social_instagram_link != blank -%}
-                  <a href="{{ settings.social_instagram_link }}" target="_blank" class="ks-social-icon"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
-                {%- endif -%}
-                {%- if settings.social_youtube_link != blank -%}
-                  <a href="{{ settings.social_youtube_link }}" target="_blank" class="ks-social-icon"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.42a2.78 2.78 0 0 0-1.94 2C1 8.16 1 12 1 12s0 3.84.46 5.58a2.78 2.78 0 0 0 1.94 2C5.12 20 12 20 12 20s6.88 0 8.6-.42a2.78 2.78 0 0 0 1.94-2C23 15.84 23 12 23 12s0-3.84-.46-5.58zM9.5 15.5v-7l6.5 3.5-6.5 3.5z"></path></svg></a>
-                {%- endif -%}
-              </div>
+        {%- when 'social' -%}
+          <p class="ks-sf-desc">{{ block.settings.subtext }}</p>
+          <div class="ks-sf-social-grid">
+            {%- if settings.social_facebook_link != blank -%}
+              <a href="{{ settings.social_facebook_link }}" target="_blank" class="ks-sf-social-icon"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg></a>
+            {%- endif -%}
+            {%- if settings.social_instagram_link != blank -%}
+              <a href="{{ settings.social_instagram_link }}" target="_blank" class="ks-sf-social-icon"><svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg></a>
+            {%- endif -%}
+            {%- if settings.social_youtube_link != blank -%}
+              <a href="{{ settings.social_youtube_link }}" target="_blank" class="ks-sf-social-icon"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.42a2.78 2.78 0 0 0-1.94 2C1 8.16 1 12 1 12s0 3.84.46 5.58a2.78 2.78 0 0 0 1.94 2C5.12 20 12 20 12 20s6.88 0 8.6-.42a2.78 2.78 0 0 0 1.94-2C23 15.84 23 12 23 12s0-3.84-.46-5.58zM9.5 15.5v-7l6.5 3.5-6.5 3.5z"></path></svg></a>
+            {%- endif -%}
+            {%- if settings.social_twitter_link != blank -%}
+              <a href="{{ settings.social_twitter_link }}" target="_blank" class="ks-sf-social-icon"><svg viewBox="0 0 24 24"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a>
             {%- endif -%}
           </div>
-        </div>
-      
-      {%- when 'app_download' -%}
-        <div class="ks-foot-col" {{ block.shopify_attributes }}>
-           <h4 class="ks-foot-col-title">{{ block.settings.heading }}</h4>
-           <p style="margin: 0 0 20px 0; font-size: 0.95rem; line-height: 1.6;">{{ block.settings.subtext }}</p>
-           <div class="ks-app-links">
-             {% if block.settings.playstore_link != blank %}
-             <a href="{{ block.settings.playstore_link }}" target="_blank" class="ks-app-btn">
-               <svg viewBox="0 0 24 24"><path d="M3 2v20l18-10L3 2z" fill="#00e676"/><path d="M3 2v20l8.5-10L3 2z" fill="#00c853"/></svg>
-               <div class="ks-app-text"><span>Get it on</span><strong>Google Play</strong></div>
-             </a>
-             {% endif %}
-             {% if block.settings.appstore_link != blank %}
-             <a href="{{ block.settings.appstore_link }}" target="_blank" class="ks-app-btn">
-               <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.36 14.82c-.8.4-1.78.61-2.73.61-3.6 0-6.17-2.6-6.17-6.24 0-3.66 2.4-6.32 5.9-6.32.96 0 1.95.23 2.76.65v2.24c-.8-.44-1.63-.64-2.45-.64-2.22 0-3.87 1.52-3.87 4.07s1.65 4.05 3.9 4.05c.87 0 1.7-.22 2.6-.7v2.28z" fill="#fff"/></svg>
-               <div class="ks-app-text"><span>Download on the</span><strong>App Store</strong></div>
-             </a>
-             {% endif %}
-           </div>
-        </div>
 
-    {%- endcase -%}
+        {%- when 'app_download' -%}
+          <p class="ks-sf-desc">{{ block.settings.subtext }}</p>
+          <div class="ks-sf-app-links">
+            {% if block.settings.playstore != blank %}
+            <a href="{{ block.settings.playstore }}" target="_blank" class="ks-sf-app-btn">
+              <svg viewBox="0 0 24 24"><path d="M3 2v20l18-10L3 2z" fill="#00e676"/><path d="M3 2v20l8.5-10L3 2z" fill="#00c853"/></svg>
+              <div class="ks-sf-app-text"><span>Get it on</span><strong>Google Play</strong></div>
+            </a>
+            {% endif %}
+            {% if block.settings.appstore != blank %}
+            <a href="{{ block.settings.appstore }}" target="_blank" class="ks-sf-app-btn">
+              <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm3.36 14.82c-.8.4-1.78.61-2.73.61-3.6 0-6.17-2.6-6.17-6.24 0-3.66 2.4-6.32 5.9-6.32.96 0 1.95.23 2.76.65v2.24c-.8-.44-1.63-.64-2.45-.64-2.22 0-3.87 1.52-3.87 4.07s1.65 4.05 3.9 4.05c.87 0 1.7-.22 2.6-.7v2.28z" fill="#fff"/></svg>
+              <div class="ks-sf-app-text"><span>Download on the</span><strong>App Store</strong></div>
+            </a>
+            {% endif %}
+          </div>
+
+        {%- when 'store_features' -%}
+          <ul class="ks-sf-features">
+            {% if block.settings.f1 != blank %}<li class="ks-sf-feature-item"><div class="ks-sf-feature-icon">✓</div><span>{{ block.settings.f1 }}</span></li>{% endif %}
+            {% if block.settings.f2 != blank %}<li class="ks-sf-feature-item"><div class="ks-sf-feature-icon">✓</div><span>{{ block.settings.f2 }}</span></li>{% endif %}
+            {% if block.settings.f3 != blank %}<li class="ks-sf-feature-item"><div class="ks-sf-feature-icon">✓</div><span>{{ block.settings.f3 }}</span></li>{% endif %}
+            {% if block.settings.f4 != blank %}<li class="ks-sf-feature-item"><div class="ks-sf-feature-icon">✓</div><span>{{ block.settings.f4 }}</span></li>{% endif %}
+          </ul>
+
+        {%- when 'business_hours' -%}
+          <div class="ks-sf-hours">
+            {% if block.settings.h1 != blank %}<div class="ks-sf-hour-row"><span>Monday - Friday</span><span>{{ block.settings.h1 }}</span></div>{% endif %}
+            {% if block.settings.h2 != blank %}<div class="ks-sf-hour-row"><span>Saturday</span><span>{{ block.settings.h2 }}</span></div>{% endif %}
+            {% if block.settings.h3 != blank %}<div class="ks-sf-hour-row"><span>Sunday</span><span style="color:var(--ks-accent);">{{ block.settings.h3 }}</span></div>{% endif %}
+          </div>
+
+        {%- when 'image_gallery' -%}
+          <div class="ks-sf-gallery">
+            {% for i in (1..6) %}
+              {% capture img_key %}img_{{ i }}{% endcapture %}
+              {% if block.settings[img_key] != blank %}
+                <a href="{{ block.settings.link | default: '#' }}" class="ks-sf-gallery-item">
+                  <img src="{{ block.settings[img_key] | image_url: width: 200 }}" class="ks-sf-gallery-img" alt="Gallery Image" loading="lazy">
+                </a>
+              {% endif %}
+            {% endfor %}
+          </div>
+
+        {%- when 'map_embed' -%}
+          <div class="ks-sf-map-container">
+            {{ block.settings.map_iframe }}
+          </div>
+
+        {%- when 'custom_text' -%}
+          <div class="ks-sf-desc">
+            {{ block.settings.custom_richtext }}
+          </div>
+
+      {%- endcase -%}
+    </div>
   {%- endfor -%}
 
 </div>
-  {%- if section.settings.payment_enable -%}
-    <div class="ks-payment-icons">
-      <span class="ks-payment-cod">✓ COD Available</span>
+  {%- if section.settings.show_payments -%}
+    <div class="ks-sf-payments">
       {%- for type in shop.enabled_payment_types -%}
         {{ type | payment_type_svg_tag: class: 'icon icon--full-color' }}
       {%- endfor -%}
     </div>
   {%- endif -%}
 </div>
-{% schema %}{"name": "Footer V2 (Interactive)","settings": [{"type": "header","content": "Decorations & Wave"},{"type": "checkbox","id": "show_wave","label": "Show Top Decorative Wave","default": true},{"type": "color","id": "wave_color","label": "Wave Color","info": "Match this to the background color of the section above the footer.","default": "#ffffff"},{"type": "header","content": "Theme Colors"},{"type": "color","id": "bg_color","label": "Main Background","default": "#051a11"},{"type": "color","id": "bg_bottom_color","label": "Bottom Bar Background","default": "#03100a"},{"type": "color","id": "heading_color","label": "Heading Text","default": "#f8fafc"},{"type": "color","id": "text_color","label": "Body Text","default": "#94a3b8"},{"type": "color","id": "accent_color","label": "Accent / Highlight Color","default": "#fbbf24"},{"type": "header","content": "Bottom Bar Settings"},{"type": "text","id": "copyright_text","label": "Copyright Text","default": "All Rights Reserved. Made for Farmers."},{"type": "checkbox","id": "payment_enable","label": "Show Payment & COD Badges","default": true},{"type": "header","content": "Spacing"},{"type": "range","id": "margin_top","min": 0,"max": 100,"step": 4,"unit": "px","label": "Top Margin","default": 0},{"type": "range","id": "padding_top","min": 20,"max": 120,"step": 4,"unit": "px","label": "Top Padding (Inside)","default": 100},{"type": "range","id": "padding_bottom","min": 20,"max": 120,"step": 4,"unit": "px","label": "Bottom Padding (Inside)","default": 72}],"blocks": [{"type": "brand_contact","name": "Brand & Contact Info","limit": 1,"settings": [{"type": "image_picker","id": "logo","label": "Custom Logo"},{"type": "range","id": "logo_width","min": 50,"max": 250,"step": 10,"unit": "px","label": "Logo Width","default": 160},{"type": "textarea","id": "description","label": "Description","default": "बिहार का नं. 1 और सबसे भरोसेमंद कृषि ई-कॉमर्स प्लेटफॉर्म। किसानों को 100% असली बीज, खाद और मशीनरी सीधे घर तक पहुँचाने का संकल्प।"},{"type": "text","id": "address","label": "Address","default": "Exhibition Road, Patna, Bihar - 800001, India"},{"type": "text","id": "phone","label": "Phone Helpline","default": "1800-123-4567"}]},{"type": "link_list","name": "Menu Column","settings": [{"type": "text","id": "heading","label": "Heading","info": "Leave blank to use the menu title."},{"type": "link_list","id": "menu","label": "Select Menu","default": "footer"}]},{"type": "trust_badges","name": "Trust Badges","limit": 1,"settings": [{"type": "text","id": "heading","label": "Heading","default": "किसान की गारंटी (Our Promise)"}]},{"type": "app_download","name": "App Download","limit": 1,"settings": [{"type": "text","id": "heading","label": "Heading","default": "Get Our Farmer App"},{"type": "textarea","id": "subtext","label": "Description","default": "आसान खरीदारी और मुफ्त डॉक्टर सलाह के लिए कृषिसाथी ऐप डाउनलोड करें।"},{"type": "url","id": "playstore_link","label": "Google Play Store Link","default": "/"},{"type": "url","id": "appstore_link","label": "Apple App Store Link"}]},{"type": "newsletter","name": "Newsletter & Socials","limit": 1,"settings": [{"type": "text","id": "heading","label": "Heading","default": "Join Our Community"},{"type": "textarea","id": "subtext","label": "Description","default": "मौसम, नई फसल तकनीक और एक्सक्लूसिव डिस्काउंट की जानकारी सबसे पहले पाएं।"},{"type": "checkbox","id": "show_social","label": "Show Social Media Icons","default": true}]}],"default": {"blocks": [{"type": "brand_contact"},{"type": "link_list"},{"type": "trust_badges"},{"type": "newsletter"}]}}{% endschema %}
+{% schema %}{"name": "Premium Mega Footer","max_blocks": 11,"settings": [{"type": "header","content": "Color Theme"},{"type": "color","id": "bg_color","label": "Main Background","default": "#051a11"},{"type": "color","id": "bg_bottom_color","label": "Bottom Bar Background","default": "#03100a"},{"type": "color","id": "heading_color","label": "Heading Text","default": "#ffffff"},{"type": "color","id": "text_color","label": "Body Text","default": "#94a3b8"},{"type": "color","id": "accent_color","label": "Accent / Highlight","default": "#fbbf24"},{"type": "header","content": "Typography & Sizes"},{"type": "range","id": "heading_size","min": 14,"max": 32,"step": 1,"unit": "px","label": "Heading Font Size","default": 20},{"type": "range","id": "body_size","min": 12,"max": 20,"step": 1,"unit": "px","label": "Body Font Size","default": 15},{"type": "header","content": "Layout & Padding"},{"type": "range","id": "max_width","min": 1000,"max": 1600,"step": 50,"unit": "px","label": "Container Max Width","default": 1300},{"type": "range","id": "margin_top","min": 0,"max": 100,"step": 5,"unit": "px","label": "Top Margin (Outside spacing)","default": 0},{"type": "range","id": "padding_top","min": 20,"max": 150,"step": 5,"unit": "px","label": "Top Padding (Inside spacing)","default": 80},{"type": "range","id": "padding_bottom","min": 20,"max": 150,"step": 5,"unit": "px","label": "Bottom Padding (Inside spacing)","default": 80},{"type": "header","content": "Bottom Bar"},{"type": "text","id": "copyright","label": "Copyright Text","default": "All Rights Reserved. Empowering Farmers."},{"type": "checkbox","id": "show_payments","label": "Show Payment Icons","default": true}],"blocks": [{"type": "brand","name": "1. Brand & Contact","settings": [{ "type": "text", "id": "heading", "label": "Heading" },{ "type": "image_picker", "id": "logo", "label": "Custom Logo" },{ "type": "range", "id": "logo_width", "min": 50, "max": 250, "step": 10, "unit": "px", "label": "Logo Width", "default": 180 },{ "type": "textarea", "id": "desc", "label": "Description", "default": "Premium agricultural products delivered straight to your farm." },{ "type": "text", "id": "address", "label": "Address", "default": "Patna, Bihar, India" },{ "type": "text", "id": "phone", "label": "Phone Number", "default": "1800-123-4567" }]},{"type": "menu","name": "2. Link Menu","settings": [{ "type": "text", "id": "heading", "label": "Heading", "default": "Quick Links" },{ "type": "link_list", "id": "menu", "label": "Select Menu", "default": "footer" }]},{"type": "trust_badges","name": "3. Trust Badges","settings": [{ "type": "text", "id": "heading", "label": "Heading", "default": "Our Guarantee" },{ "type": "text", "id": "t1_head", "label": "Badge 1 Title", "default": "100% Original" },{ "type": "text", "id": "t1_sub", "label": "Badge 1 Subtext", "default": "Certified Products" },{ "type": "text", "id": "t2_head", "label": "Badge 2 Title", "default": "Fast Delivery" },{ "type": "text", "id": "t2_sub", "label": "Badge 2 Subtext", "default": "Across all 38 districts" },{ "type": "text", "id": "t3_head", "label": "Badge 3 Title", "default": "Cash on Delivery" },{ "type": "text", "id": "t3_sub", "label": "Badge 3 Subtext", "default": "Pay on arrival" }]},{"type": "newsletter","name": "4. Newsletter","settings": [{ "type": "text", "id": "heading", "label": "Heading", "default": "Join Our Community" },{ "type": "textarea", "id": "subtext", "label": "Description", "default": "Subscribe for the latest farming tips and seasonal offers." }]},{"type": "social","name": "5. Social Media","settings": [{ "type": "text", "id": "heading", "label": "Heading", "default": "Follow Us" },{ "type": "textarea", "id": "subtext", "label": "Description", "default": "Join thousands of farmers on our social platforms." }]},{"type": "app_download","name": "6. App Downloads","settings": [{ "type": "text", "id": "heading", "label": "Heading", "default": "Download App" },{ "type": "textarea", "id": "subtext", "label": "Description", "default": "Get the best agri-shopping experience on your phone." },{ "type": "url", "id": "playstore", "label": "Google Play Link" },{ "type": "url", "id": "appstore", "label": "App Store Link" }]},{"type": "store_features","name": "7. Features List","settings": [{ "type": "text", "id": "heading", "label": "Heading", "default": "Why Us?" },{ "type": "text", "id": "f1", "label": "Feature 1", "default": "Free Agronomist Advice" },{ "type": "text", "id": "f2", "label": "Feature 2", "default": "GST Invoice Provided" },{ "type": "text", "id": "f3", "label": "Feature 3", "default": "Easy Returns Policy" },{ "type": "text", "id": "f4", "label": "Feature 4", "default": "Secure Payments" }]},{"type": "business_hours","name": "8. Business Hours","settings": [{ "type": "text", "id": "heading", "label": "Heading", "default": "Opening Hours" },{ "type": "text", "id": "h1", "label": "Mon-Fri Hours", "default": "9:00 AM - 6:00 PM" },{ "type": "text", "id": "h2", "label": "Saturday Hours", "default": "10:00 AM - 4:00 PM" },{ "type": "text", "id": "h3", "label": "Sunday Hours", "default": "Closed" }]},{"type": "image_gallery","name": "9. Image Gallery","settings": [{ "type": "text", "id": "heading", "label": "Heading", "default": "On Instagram" },{ "type": "url", "id": "link", "label": "Gallery Link destination" },{ "type": "image_picker", "id": "img_1", "label": "Image 1" },{ "type": "image_picker", "id": "img_2", "label": "Image 2" },{ "type": "image_picker", "id": "img_3", "label": "Image 3" },{ "type": "image_picker", "id": "img_4", "label": "Image 4" },{ "type": "image_picker", "id": "img_5", "label": "Image 5" },{ "type": "image_picker", "id": "img_6", "label": "Image 6" }]},{"type": "map_embed","name": "10. Map Embed","settings": [{ "type": "text", "id": "heading", "label": "Heading", "default": "Our Location" },{ "type": "html", "id": "map_iframe", "label": "Google Maps Iframe Code" }]},{"type": "custom_text","name": "11. Custom Text","settings": [{ "type": "text", "id": "heading", "label": "Heading", "default": "About Us" },{ "type": "richtext", "id": "custom_richtext", "label": "Text" }]}],"default": {"blocks": [{ "type": "brand" },{ "type": "menu" },{ "type": "trust_badges" },{ "type": "newsletter" }]}}{% endschema %}
