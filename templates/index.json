@@ -182,6 +182,11 @@
         "padding_top": 40,
         "padding_bottom": 52
       }
+    },
+    "krishisathi_local_cJhkzT": {
+      "type": "krishisathi-local",
+      "name": "Local District Social Proof",
+      "settings": {}
     }
   },
   "order": [
@@ -190,6 +195,7 @@
     "featured_collection",
     "custom_liquid_ymfHiJ",
     "custom_liquid_RHCAK7",
-    "custom_liquid_kLHUzA"
+    "custom_liquid_kLHUzA",
+    "krishisathi_local_cJhkzT"
   ]
 }
