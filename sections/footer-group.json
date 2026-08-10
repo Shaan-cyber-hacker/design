@@ -13,10 +13,36 @@
   "sections": {
     "footer": {
       "type": "footer",
+      "blocks": {
+        "brand_information_39GxK3": {
+          "type": "brand_information",
+          "settings": {
+            "heading": "",
+            "logo": "shopify://shop_images/cffhcghjkh_gjyfhtdgd_page-0001.webp",
+            "logo_width": 220,
+            "desc": "Premium agricultural products delivered straight to your farm.",
+            "address": "Patna, Bihar, India",
+            "phone": "+91 7870647015"
+          }
+        }
+      },
+      "block_order": [
+        "brand_information_39GxK3"
+      ],
       "settings": {
+        "bg_color": "#051a11",
+        "bg_bottom_color": "#03100a",
+        "heading_color": "#ffffff",
+        "text_color": "#94a3b8",
+        "accent_color": "#fbbf24",
+        "heading_size": 20,
+        "body_size": 15,
+        "max_width": 1300,
         "margin_top": 0,
         "padding_top": 36,
-        "padding_bottom": 36
+        "padding_bottom": 36,
+        "copyright": "All Rights Reserved. Empowering Farmers.",
+        "show_payments": true
       }
     }
   },
